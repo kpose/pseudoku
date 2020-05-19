@@ -32,19 +32,75 @@ module.exports = function () {
         const refID = `refID_${tileCount}`;
         const left = spaceLeft + (col * tileWidth);
         const top = this.state.controlAreaHeight + spaceTop + (row * tileHeight);
-    }
-    }
-    if (tileCount === (numberOfTilesAcross * numberOfTilesDown) - 1) {
-        rowArray.push({ refID: refID, tileNum: 0});
 
-        tiles.push(
-            <View key = {tileCount}
-                ref = { (inRef) => {
-                    const refs = this.state.refs;
-                    refs[refID] =inRef;
-                    this.setState({ refs : refs});
-                }}
-                />
-        );
+        if (tileCount === (numberOfTilesAcross * numberOfTilesDown) - 1) {
+            rowArray.push({ refID: refID, tileNum: 0});
+    
+            //add empty tile
+            tiles.push(
+                <View key = {tileCount}
+                    ref = { (inRef) => {
+                        const refs = this.state.refs;
+                        refs[refID] =inRef;
+                        this.setState({ refs : refs});
+                    }}
+                    />
+            );
+        } else {
+            rowArray.push({ refID: refID,  tileNum: tileNum});
+    
+            tiles.push(
+                <Animated.View key={tileCount}
+                    ref={ (inRef) => {
+                        const refs = this.state.refs;
+                        refs[refID] = inRef;
+                        this.setState({ refs: refs });
+                    }}
+                    style = {[
+                        {
+                            position : "absolute",
+                            backgroundColor: "#d08080",
+                            flex: 1,
+                            alignItems: "center",
+                            justifyContent: "center",
+                            borderWidth: 10,
+                            borderTopColor: "#80a080",
+                            borderLeftColor: "#80a080",
+                            borderBottomColor: "#c0f0c0",
+                            borderRightColor: "#c0f0c0",
+                            borderStyle: "solid",
+                            borderRadius: 20
+                        },
+                        {
+                            left: new Animated.Value(left),
+                            top: new Animated.Value(top),
+                            width: tileWidth - 4, 
+                            height : tileHeight - 4
+                        }
+                    ]} >
+                        <TouchableWithoutFeedback onPress = { () => global.tilePress(refID) }>
+                            <View style = {{ width: tileWidth, 
+                                             height: tileHeight,
+                                             alignItems: "center",
+                                             justifyContent: "center"
+                                    }}>
+                                        <Text style = {{
+                                            fontWeight: "bold",
+                                            fontSize: 24
+                                        }}> {tileNum} </Text>
+                                    </View>
+                        </TouchableWithoutFeedback>
+                    </Animated.View>
+            );
     }
+     tileCount = tileCount + 1;
+    }
+}
+this.setState({
+    tiles: tiles, 
+    virtualTiles : virtualTiles,
+    tileWidth: tileWidth, 
+    tileHeight: tileHeight
+});
+  
 }
