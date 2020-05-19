@@ -127,10 +127,35 @@ export default class App extends React.Component {
       )
     }
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
+      <View style = {{
+        flex : 1,
+        alignItems: "stretch",
+        backgroundColor: "#000000"
+      }}>
+        <View style = {{
+          position: "absolute",
+          left: 0,
+          width: "100%",
+          top : Platform.OS.toLowerCase() === "android" ?
+                constants.statusBarHeight + 10 : 0
+        }}>
+          <Button title = "Control Menu"
+                  disabled = {this.state.controlMenuButtonDisabled}
+                  onPress={ () => {this.setState({
+                    controlMenuButtonDisabled : true, controlMenuVisible : true
+                  }) }}
+                  />
+          {wonScreen}
+          {controlMenu}
+          {this.state.tiles}
+        </View>
       </View>
     );
   }
+
+  componentDidMount() {
+    this.setState(state, buildMatrix);
+  }
+  
 }
 
