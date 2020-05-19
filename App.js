@@ -76,6 +76,56 @@ export default class App extends React.Component {
               </View>
       );
     }
+
+    let wonScreen = null;
+
+    if (this.state.wonVisible) {
+      const elapsedTime = Math.round(
+        (new Date().getTime() - this.state.startTime) / 1000
+      );
+      wonScreen = (
+        <View style = {{
+          zIndex : 9998,
+          position: "absolute", 
+          left : 0,
+          top : this.state.controlAreaHeight,
+          width : this.state.screenUsableWidth,
+          height : this.state.screenUsableHeight
+        }}>
+
+          <Image source = {require("./assets/icon.png")}
+                  resizeMode= "stretch" fadeDuration= {0}
+                  style= {{
+                    width: this.state.screenUsableWidth,
+                    height: this.state.screenUsableHeight
+                  }}
+                  />
+        <View style = {{
+          alignItems: "center",
+          justifyContent: "center",
+          position: "absolute",
+          width: "100%",
+          left: 0,
+          zIndex: 9999,
+          top: this.state.screenUsableHeight -240
+        }}>
+          <Text style = {{fontSize: 20, fontWeight: "bold"}}>
+            You took {this.state.moveCount} moves to win
+          </Text>
+          <Text style = {{fontSize: 20, fontWeight: "bold", paddingBottom: 40}}>
+            Game lasted {elapsedTime} seconds
+          </Text>
+          <Button title = "Start A New Game"
+                  onPress = { () => {
+                    state.numberOfTilesAcross = this.state.numberOfTilesAcross;
+                    state.numberOfTilesDown = this.state.numberOfTilesDown;
+                    this.setState(state, buildMatrix);
+                  }}
+                  />
+        </View>
+        </View>
+      )
+    }
     return (
       <View style={styles.container}>
         <Text>Open up App.js to start working on your app!</Text>
