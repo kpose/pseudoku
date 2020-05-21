@@ -9,7 +9,7 @@ module.exports = function () {
     const numberOfTilesAcross = this.state.numberOfTilesAcross;
     const numberOfTilesDown = this.state.numberOfTilesDown;
 
-    //calculate tile height and width
+    //calculate tile height and width of each tile
     const tileWidth = Math.floor(screenUsableWidth / numberOfTilesAcross);
     const tileHeight = Math.floor(screenUsableHeight / numberOfTilesDown);
    
@@ -30,6 +30,8 @@ module.exports = function () {
     for (let col = 0; col < numberOfTilesAcross; col++) {
         const tileNum = tileNumbers[tileCount];
         const refID = `refID_${tileCount}`;
+        
+        //calculate physical position of tiles
         const left = spaceLeft + (col * tileWidth);
         const top = this.state.controlAreaHeight + spaceTop + (row * tileHeight);
 

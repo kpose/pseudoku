@@ -160,14 +160,14 @@ export default class App extends Component {
                   />
           {wonScreen}
           {controlMenu}
-          {/* {this.state.tiles} */}
+          {this.state.tiles}
         </SafeAreaView>
       </View>
     )
   }
 
   componentDidMount() {
-    this.setState(state, /* buildMatrix */);
+    this.setState(state, buildMatrix);
   }
 
 }
