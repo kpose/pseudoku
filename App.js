@@ -3,6 +3,14 @@ import { Text, View, Button, Platform, Image, Slider, SafeAreaView } from 'react
 import Constants from 'expo-constants';
 import state from './state';
 
+
+/* global.alterMatrixSize = require('./functions/alterMatrixSize');
+global.buildMatrix = require('./functions/buildMatrix');
+global.determineOutcome = require('./functions/determineOutcome');
+global.generateSolvableLayout = require('./functions/generateSolvableLayout');
+global.tilePress = require('./functions/tilePress'); */
+
+
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -16,15 +24,22 @@ export default class App extends Component {
   }
   render() {
 
+    //control menu screen
     let controlMenu = null;
     
     if (this.state.controlMenuVisible) {
       controlMenu = (
         <View  style = {{ 
-              padding : 20, position: "absolute", zIndex: 9999,
-              flex: 1, alignItems: "stretch", justifyContent: "center",
-              borderRadius: 20, backgroundColor: "rgba(100, 64,255,0.95)",
-              width: this.state.controlMenuWidth, height: this.state.controlMenuHeight,
+              padding : 20, 
+              position: "absolute",
+              zIndex: 9999,
+              flex: 1, 
+              alignItems: "stretch", 
+              justifyContent: "center",
+              borderRadius: 20, 
+              backgroundColor: "rgba(100, 64,255, 0.95)",
+              width: this.state.controlMenuWidth, 
+              height: this.state.controlMenuHeight,
               left : (this.state.screenUsableWidth - this.state.controlMenuWidth) / 2,
               top : (this.state.screenUsableHeight - this.state.controlMenuHeight) / 2 }}>
 
@@ -49,15 +64,18 @@ export default class App extends Component {
                        value= {3} step = {1} maximumTrackTintColor= "#C240A6" 
                        onSlidingComplete = { (value) => global.alterMatrixSize("across", value) }
                         />
-                <Text style = {{ color: "#ffffff", paddingTop: 40}}>Tiles Down</Text>
+
+               <Text style = {{ color: "#ffffff", paddingTop: 40}}>Tiles Down</Text>
                 <Slider minimumValue = {3} maximumValue = {6} 
                        value= {3} step = {1} maximumTrackTintColor= "#C240A6" 
                        onSlidingComplete = { (value) => global.alterMatrixSize("down", value) }
                         />
 
-                <View style = {{ paddingTop : 40}}><Text style = {{color: "#ffffff"}}>
-                  Warning: Changing the grid size will automatically begin a new game!
-                </Text></View>
+                <View style = {{ paddingTop : 40}}>
+                  <Text style = {{color: "#ffffff"}}>
+                    Warning: Changing the grid size will automatically begin a new game!
+                  </Text>
+                </View>
 
                 <View style = {{ paddingTop: 40, alignSelf: "center" }}>
                   <Button title= "Done" style = {{ width: 150 }}
@@ -67,6 +85,57 @@ export default class App extends Component {
                           />
                 </View>
               </View>
+      );
+    }
+
+    //you won screen
+    let wonScreen = null;
+    if (this.state.wonVisible) {
+      const elapsedTime = Math.round(
+        (new Date().getTime() - this.state.startTime) / 1000
+      );
+      wonScreen = (
+        <View style={{
+          zIndex : 9998,
+          position : "absolute",
+          left : 0,
+          top : this.state.controlAreaHeight,
+          width : this.state.screenUsableWidth,
+          height : this.state.screenUsableHeight
+        }}>
+          <Image source={require("./assets/splash.png")}
+            resizeMode="stretch" fadeDuration={0}
+            style={{
+              width : this.state.screenUsableWidth,
+              height : this.state.screenUsableHeight
+            }}
+          />
+          <View style={{
+            alignItems : "center",
+            justifyContent : "center",
+            position : "absolute",
+            width : "100%",
+            left : 0,
+            zIndex : 9999,
+            top : this.state.screenUsableHeight - 240
+          }}>
+            <Text style={{ fontSize : 20, fontWeight : "bold" }}>
+              You took {this.state.moveCount} moves to win
+            </Text>
+            <Text style={{
+              fontSize : 20, fontWeight : "bold", paddingBottom : 40
+            }}>
+              Game lasted {elapsedTime} seconds
+            </Text>
+            <Button title="Start A New Game"
+              onPress={ () => {
+                state.numberOfTilesAcross = this.state.numberOfTilesAcross;
+                state.numberOfTilesDown = this.state.numberOfTilesDown;
+                this.setState(state, buildMatrix);
+              }}
+            />
+          </View>
+        </View>
       );
     }
 
@@ -89,11 +158,16 @@ export default class App extends Component {
                     controlMenuButtonDisabled : true, controlMenuVisible : true
                   }) }}
                   />
-          {/* {wonScreen} */}
+          {wonScreen}
           {controlMenu}
           {/* {this.state.tiles} */}
         </SafeAreaView>
       </View>
     )
   }
+
+  componentDidMount() {
+    this.setState(state, /* buildMatrix */);
+  }
+
 }
