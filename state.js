@@ -5,7 +5,7 @@ const controlAreaHeight = 80;
 const {height, width } = Dimensions.get("window");
 
 
-module.export = {
+module.exports = {
     tiles : [],
     numberOfTilesAcross: 3,
     numberOfTilesDown : 3,

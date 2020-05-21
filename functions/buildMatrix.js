@@ -12,7 +12,7 @@ module.exports = function () {
     //calculate tile height and width
     const tileWidth = Math.floor(screenUsableWidth / numberOfTilesAcross);
     const tileHeight = Math.floor(screenUsableHeight / numberOfTilesDown);
-
+   
     //calculate space left
     const spaceTop = Math.floor((screenUsableHeight - (numberOfTilesDown * tileHeight)) / 2);
     const spaceLeft = Math.floor((screenUsableWidth - (numberOfTilesAcross * tileWidth)) / 2);
@@ -97,10 +97,8 @@ module.exports = function () {
     }
 }
 this.setState({
-    tiles: tiles, 
-    virtualTiles : virtualTiles,
-    tileWidth: tileWidth, 
-    tileHeight: tileHeight
+    tiles: tiles, virtualTiles : virtualTiles,
+    tileWidth: tileWidth, tileHeight: tileHeight
 });
   
 }
