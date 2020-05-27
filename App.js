@@ -4,11 +4,13 @@ import Constants from 'expo-constants';
 import state from './state';
 
 
-/* global.alterMatrixSize = require('./functions/alterMatrixSize');
+
 global.buildMatrix = require('./functions/buildMatrix');
-global.determineOutcome = require('./functions/determineOutcome');
 global.generateSolvableLayout = require('./functions/generateSolvableLayout');
-global.tilePress = require('./functions/tilePress'); */
+/* global.tilePress = require('./functions/tilePress'); 
+global.determineOutcome = require('./functions/determineOutcome');
+global.alterMatrixSize = require('./functions/alterMatrixSize'); */
+
 
 
 export default class App extends Component {
@@ -16,11 +18,12 @@ export default class App extends Component {
     super(props);
     this.state = state;
 
-    /* global.alterMatrixSize = global.alterMatrixSize.bind(this);
-    global.buildMatrix = global.buildMatrix.bind(this);
-    global.determineOutcome = global.determineOutcome.bind(this);
+    
     global.generateSolvableLayout = global.generateSolvableLayout.bind(this);
-    global.tilePress = global.tilePress.bind(this);  */
+    global.buildMatrix = global.buildMatrix.bind(this);
+    /* global.determineOutcome = global.determineOutcome.bind(this);
+    global.alterMatrixSize = global.alterMatrixSize.bind(this);
+    global.tilePress = global.tilePress.bind(this);   */
   }
   render() {
 

@@ -1,6 +1,6 @@
 import { Dimensions } from "react-native";
 
-const controlAreaHeight = 80;
+const controlAreaHeight = 50;
 
 const {height, width } = Dimensions.get("window");
 
@@ -10,7 +10,7 @@ module.exports = {
     numberOfTilesAcross: 3,
     numberOfTilesDown : 3,
     screenUsableWidth: width,
-    screenUsableHeight: height - controlAreaHeight,
+    screenUsableHeight: (height - controlAreaHeight) - 80,
     refs: {},
     virtualTiles : null,
     tileWidth: null,
