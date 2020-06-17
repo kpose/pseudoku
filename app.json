@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "HelloWorld",
+    "name": "Pseudoku",
     "slug": "pseudoku",
     "platforms": [
       "ios",

@@ -1,8 +1,7 @@
 const lodash = require("lodash");
 
 
-// Set to true to quickly test the win scenario.  Note: this will only work
-// for a 3x3 grid!
+// Set to true to quickly test the win scenario
 const testWin = false;
 
 

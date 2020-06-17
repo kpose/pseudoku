@@ -29,6 +29,7 @@ module.exports = function() {
   const tiles = [];
   const virtualTiles = [];
   let tileCount = 0;
+
   for (let row = 0; row < numberOfTilesDown; row++) {
 
     const rowArray = [];

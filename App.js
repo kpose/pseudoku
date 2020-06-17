@@ -86,7 +86,7 @@ export default class App extends Component {
                             controlMenuVisible: false, controlMenuButtonDisabled : false 
                           }) }
                           />
-                </View>
+                </View> 
               </View>
       );
     }
@@ -165,7 +165,7 @@ export default class App extends Component {
           {controlMenu}
           {this.state.tiles}
         </SafeAreaView>
-      </View>
+      </View> 
     )
   }
 
